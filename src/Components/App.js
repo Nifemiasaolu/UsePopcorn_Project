@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavBar from "./NavBar";
 import Main from "./Main";
 import { SearchBar } from "./NavBar";
@@ -55,10 +55,22 @@ const tempWatchedData = [
   },
 ];
 
-export default function App() {
-  const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
+const KEY = "3acf5bd0";
 
+export default function App() {
+  const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
+
+  useEffect(function(){
+    async function fetchMovies(){
+     const res = await fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=avengers`)
+     const data = await res.json() 
+     setMovies(data.Search)
+    }
+    fetchMovies();
+  }, [])
+
+  
   return (
     <>
       <NavBar>
@@ -70,7 +82,7 @@ export default function App() {
         <Box>
           <MovieList movies={movies} />
         </Box>
-        
+
         <Box>
           <WatchedMovieSummary watched={watched} />
           <WatchedMovieList watched={watched} />
