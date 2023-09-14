@@ -1,4 +1,3 @@
-
 export default function WatchedMovieList({ watched }) {
   return (
     <ul className="list">
@@ -11,7 +10,7 @@ export default function WatchedMovieList({ watched }) {
 
 function WatchedMovie({ movie }) {
   return (
-    <li >
+    <li>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
       <h3>{movie.Title}</h3>
       <div>
@@ -30,4 +29,11 @@ function WatchedMovie({ movie }) {
       </div>
     </li>
   );
+}
+
+export function MovieDetails({ selectedId, onCloseMovie }) {
+  return <div className="details">
+    <button className="btn-back" onClick={onCloseMovie}>&larr;</button>
+    {selectedId}
+  </div>;
 }
