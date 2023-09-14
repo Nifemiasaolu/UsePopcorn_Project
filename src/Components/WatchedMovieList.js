@@ -37,3 +37,4 @@ export function MovieDetails({ selectedId, onCloseMovie }) {
     {selectedId}
   </div>;
 }
+// //
