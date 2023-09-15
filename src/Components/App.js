@@ -55,7 +55,7 @@ const tempWatchedData = [
   },
 ];
 
-const KEY = "3acf5bd0";
+export const KEY = "3acf5bd0";
 
 export default function App() {
   const [query, setQuery] = useState("");
@@ -139,7 +139,7 @@ export default function App() {
   );
 }
 
-function Loading() {
+export function Loading() {
   return <p className="loader">Loading...</p>;
 }
 
