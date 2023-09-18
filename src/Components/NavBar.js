@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useKey } from "../Custom Hooks/useKey";
 
-export default function NavBar({children}) {
+export default function NavBar({ children }) {
   return (
     <nav className="nav-bar">
       <Logo />
@@ -18,8 +19,17 @@ function Logo() {
   );
 }
 
-export function SearchBar({query, setQuery}) {
+export function SearchBar({ query, setQuery }) {
+  const inputEl = useRef(null);
 
+  // useKey Custom Hook & Enter KeyPress Event
+  useKey("Enter", function () {
+    if (document.activeElement === inputEl.current) return;
+    inputEl.current.focus();
+    setQuery("");
+  });
+
+// //////
   return (
     <input
       className="search"
@@ -27,11 +37,12 @@ export function SearchBar({query, setQuery}) {
       placeholder="Search movies..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
+      ref={inputEl}
     />
   );
 }
 
-export function NumResult({movies}) {
+export function NumResult({ movies }) {
   return (
     <p className="num-results">
       Found <strong>{movies.length}</strong> results
