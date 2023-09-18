@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { KEY, Loading } from "./App";
 import StarRating from "../StarRating";
+import { useKey } from "../Custom Hooks/useKey";
 
 export function MovieDetails({
   selectedId,
@@ -11,6 +12,16 @@ export function MovieDetails({
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState("");
+
+  // To get number of times rating was done on a movie
+  const countRef = useRef(0);
+  useEffect(function(){
+    if(userRating) countRef.current = countRef.current + 1
+  }, [userRating])
+
+  // NOTE: useState is persistent, and tables a re-render 
+  // while useRef is persistent, but DOES NOT table a re-render
+  // Normal const (e.g const count = 0) is NOT persistent, and DOES NOT table a re-render.
 
   const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
   const watchedUserRating = watched.find(
@@ -39,30 +50,19 @@ export function MovieDetails({
       imdbRating: Number(imdbRating),
       runtime: Number(runtime.split(" ").at(0)),
       userRating,
+      countRatingDecision: countRef.current,
     };
 
     onAddWatched(newWatchedMovie);
     onCloseMovie();
   }
 
-  // Escape KeyPress Event and CleanUp Effect 
-  useEffect(function(){
-    function callback(e){
-      if(e.code === "Escape"){
-        onCloseMovie();
-        console.log("CLOSING")
-      }
-    }
+  // Escape KeyPress Event and CleanUp Effect from useKey Custom Hooks
+  useKey("Escape", onCloseMovie)
 
-    document.addEventListener("keydown", callback);
 
-    // CleanUp
-    return function(){
-      document.removeEventListener("keydown", callback)
-    }
-  }, [onCloseMovie])
-
-  // Fetch Data Effect
+  /////////////
+  // Fetch Movie Data Effect by ID||Title
   useEffect(
     function () {
       async function getMovieDetails() {
