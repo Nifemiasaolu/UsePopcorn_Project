@@ -49,4 +49,4 @@ export function NumResult({ movies }) {
     </p>
   );
 }
-// ////
+// ///
