@@ -51,4 +51,4 @@ export const average = (arr) =>
 export default function Main({ children }) {
   return <main className="main">{children}</main>;
 }
-// //
+// /
