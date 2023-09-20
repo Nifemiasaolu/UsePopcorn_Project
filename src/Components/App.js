@@ -18,7 +18,7 @@ export default function App() {
   const [selectedId, setSelectedId] = useState(null);
 
   // Custom Hooks (Easy to use in other projects => Reusability)
-  const { movies, isLoading, error } = useMovies(query);
+  const { movies, isLoading, error } = useMovies(query); 
   const [watched, setWatched] = useLocalStorageState([], "watched");
 
   function handleSelectedMovie(id) {
@@ -90,3 +90,5 @@ function ErrorMessage({ message }) {
     </p>
   );
 }
+
+// ///
