@@ -48,6 +48,7 @@ export default function App() {
 
       <Main>
         <Box>
+          <h2 className="summary">SEARCHED MOVIES</h2>
           {/* {isLoading ? <Loading /> : error ? < ErrorMessage/> : <MovieList movies={movies}/>} */}
           {isLoading && <Loading />}
           {!isLoading && !error && (
