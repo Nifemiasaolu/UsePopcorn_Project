@@ -43,9 +43,9 @@ export function SearchBar({ query, setQuery }) {
         ref={inputEl}
       />
 
-      <button className="btn-del" onClick={() => handleClick()}>
+      {/* <button className="btn-del" onClick={() => handleClick()}>
         XXXXXXXXXXXXX
-      </button>
+      </button> */}
     </div>
   );
 }
